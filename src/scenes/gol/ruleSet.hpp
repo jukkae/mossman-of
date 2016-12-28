@@ -1,6 +1,8 @@
 #ifndef RULESET_H
 #define RULESET_H
 
+#include <algorithm>
+
 class RuleSet {
 public:
 	RuleSet(): birthCounts({ 3 }), survivalCounts({ 2, 3 }) {;}
