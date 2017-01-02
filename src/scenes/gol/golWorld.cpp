@@ -32,7 +32,6 @@ void GolWorld::step() {
 	auto buffer = buildCellContainer();
 	for(int x = 0; x < colCount(); x++) {
 		for(int y = 0; y < rowCount(); y++) {
-			if(x >= nCols || y >= nRows) continue;
 			int neighbourCount = countAliveNeighbours(x,y);
 			buffer[x][y] = (isAlive(x, y) 
 				? ruleSet.survivalRulesContain(neighbourCount)
@@ -47,7 +46,7 @@ int GolWorld::countAliveNeighbours(int x, int y) const {
 	int col, row;
 	for(auto neighbour : neighbourhood) {
 		col = wrapColumn(neighbour.first + x);
-		row = wrapColumn(neighbour.second + y);
+		row = wrapRow(neighbour.second + y);
 		if(isAlive(col, row)) sum++;
 	}
 	return sum;
