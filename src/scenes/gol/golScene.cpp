@@ -33,6 +33,7 @@ void GolScene::keyPress(int key) {
 	if(key == 'c') world.clear();
 	if(key == 'b') world.insertShape(bomb, rand() % world.rowCount(), rand() % world.colCount());
 	if(key == 'p') active = !active;
+	if(key == 'a') world.step();
 	if(key == OF_KEY_UP) {
 		colCount++;
 		rowCount++;
