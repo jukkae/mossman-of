@@ -34,3 +34,6 @@
 
 # OS-generated files
 .DS_Store
+
+# Swap files
+*.swp

@@ -4,23 +4,13 @@
 #include "ofMain.h"
 #include "scene.hpp"
 #include "ruleSet.hpp"
+#include "golWorld.hpp"
 
 class GolScene : public Scene {
 public:
 	int colCount = 1024; // default size of ofApp window
 	int rowCount = 768;
-	GolScene(): ruleSet() {
-		gol.resize(colCount);
-		for(int i = 0; i < colCount; i++) {
-			gol[i].resize(rowCount);
-		}
-		for(int i = 0; i < colCount; i++) {
-			for(int j = 0; j < rowCount; j++) {
-				if(rand() % 2 == 0) gol[i][j] = true;
-				else gol[i][j] = false;
-			}
-		}
-		return;
+	GolScene(): world(colCount, rowCount) {
 	}
 	void draw();
 	void update(float dt);
@@ -28,20 +18,11 @@ public:
 	void deactivate();
 	void keyPress(int key);
 private:
-	RuleSet ruleSet;
-	std::vector<std::vector<bool>> gol;
+	GolWorld world;
 	bool active = true;
-	std::vector<std::vector<bool>> getNextStates();
 	std::vector<std::vector<bool>> bomb = { { false, true, false }, { true, true, true }, { true, false, false }};
-	bool calculateNextState(int x, int y);
-	void randomizeState();
-	void randomizeRules();
-	void clearScreen();
 	void insertShape(std::vector<std::vector<bool>> shape, int x, int y);
-	int countAliveNeighbours(int x, int y);
-	int wrapColumn(int x) { return wrapAround(x, colCount); }
-	int wrapRow(int y) { return wrapAround(y, rowCount); }
-	int wrapAround(int i, int max) { if(i >= 0 && i < max) return i; else if(i < 0) return max + i; else return i - max; }
+	void randomizeRules();
 };
 
 #endif /* GOLSCENE_H */

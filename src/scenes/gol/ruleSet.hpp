@@ -2,6 +2,7 @@
 #define RULESET_H
 
 #include <algorithm>
+#include <vector>
 
 class RuleSet {
 public:
