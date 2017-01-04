@@ -23,7 +23,9 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	activeScene->update(ofGetLastFrameTime());
+	auto dt = ofGetLastFrameTime();
+	activeScene->update(dt);
+	updateFps(dt);
 
 	//lets scale the vol up to a 0-1 range
 	scaledVol = ofMap(smoothedVol, 0.0, 0.17, 0.0, 1.0, true);
@@ -43,6 +45,13 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	activeScene->draw();
+
+	if(drawFpsLabel) {
+		ofPushStyle();
+		ofSetColor(255, 0, 0);
+		ofDrawBitmapString(ofToString(fps, 2), 20, 20);
+		ofPopStyle();
+	}
 }
 
 void ofApp::audioIn(float* input, int bufferSize, int nChannels) {
@@ -78,6 +87,9 @@ void ofApp::keyPressed(int key){
 	}
 	if (key == '2') {
 		activeScene = s2;
+	}
+	if (key == OF_KEY_F1) {
+		drawFpsLabel = !drawFpsLabel;
 	}
 	else {
 		activeScene->keyPress(key);
@@ -132,4 +144,9 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+void ofApp::updateFps(float dt) {
+	fps = 1/dt; // TODO apply simple moving average?
 }

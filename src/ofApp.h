@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 
+#include <vector>
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -22,6 +24,10 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		void audioIn(float* input, int bufferSize, int nChannels);
+
+	private:
+		void updateFps(float dt);
+
 		ofSoundStream soundStream;
 
 		std::vector<float> left;
@@ -30,4 +36,7 @@ class ofApp : public ofBaseApp{
 
 		float smoothedVol;
 		float scaledVol;
+
+		float fps = 0;
+		bool drawFpsLabel = false;
 };
